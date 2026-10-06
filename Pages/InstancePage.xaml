@@ -1,0 +1,74 @@
+<Page x:Class="SFTLauncher.Pages.InstancePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:pages="clr-namespace:SFTLauncher.Pages">
+
+    <Page.Resources>
+        <pages:BoolToVisibilityConverter x:Key="BoolToVisibility" />
+        <pages:BoolToVisibilityConverter x:Key="InverseBoolToVisibility" Invert="True" />
+    </Page.Resources>
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Margin="0,0,0,24">
+            
+            <!-- 标题栏 -->
+            <Grid Margin="0,0,0,20">
+                <TextBlock Text="实例库" Style="{StaticResource LabelTitle}"/>
+                <Button Style="{StaticResource AccentButton}" HorizontalAlignment="Right" 
+                        Height="36" Width="120" Content="+ 新建实例" Click="NewInstance_Click"/>
+            </Grid>
+
+            <!-- 实例列表 -->
+            <ItemsControl x:Name="InstanceList">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource CardStyle}" Padding="16" Margin="0,0,0,10">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel Grid.Column="0" VerticalAlignment="Center">
+                                    <TextBlock Text="{Binding DisplayName}" Style="{StaticResource LabelHeading}"/>
+                                    <TextBlock Text="{Binding Subtitle}" Style="{StaticResource LabelSecondary}" Margin="0,4,0,0"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                                    <Button Style="{StaticResource AccentButton}"
+                                            Height="36" Width="100" Content="启动" Margin="0,0,8,0"
+                                            Tag="{Binding VersionId}"
+                                            IsEnabled="{Binding IsLaunchable}"
+                                            Click="StartInstance_Click"/>
+                                    <Button Height="36" Width="100" Content="补全文件"
+                                            Tag="{Binding VersionId}"
+                                            Visibility="{Binding IsLaunchable, Converter={StaticResource InverseBoolToVisibility}}"
+                                            Background="#F9FAFB" Foreground="#6B7280"
+                                            BorderThickness="1" BorderBrush="#E5E7EB" Cursor="Hand"
+                                            Click="RepairInstance_Click"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <!-- 空状态提示：没有扫描到实例时才显示 -->
+            <Border x:Name="EmptyState" Style="{StaticResource CardStyle}" Padding="32" Visibility="Collapsed">
+                <StackPanel HorizontalAlignment="Center">
+                    <TextBlock Text="📂" FontSize="56" HorizontalAlignment="Center" Margin="0,0,0,20"/>
+                    <TextBlock Text="还没有实例" Style="{StaticResource LabelHeading}" HorizontalAlignment="Center" Margin="0,0,0,10"/>
+                    <TextBlock Text="点击右上角" Style="{StaticResource LabelSecondary}" HorizontalAlignment="Center"/>
+                    <TextBlock Text="+ 新建实例" Foreground="{StaticResource AccentBrush}"
+                              HorizontalAlignment="Center" FontWeight="600" FontSize="16"/>
+                    <TextBlock Text="开始创建你的第一个游戏实例" Style="{StaticResource LabelSecondary}" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+                </StackPanel>
+            </Border>
+
+            <!-- 当前扫描的目录，便于确认实例库看的是哪个位置 -->
+            <TextBlock x:Name="ScanHint" Style="{StaticResource LabelSecondary}"
+                       Margin="0,12,0,0" TextWrapping="Wrap"/>
+            
+        </StackPanel>
+    </ScrollViewer>
+</Page>

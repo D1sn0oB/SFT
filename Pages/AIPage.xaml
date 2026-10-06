@@ -1,0 +1,45 @@
+<Page x:Class="SFTLauncher.Pages.AIPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <!-- 聊天区域 -->
+        <Border Grid.Row="0" Style="{StaticResource CardStyle}" Margin="0,0,0,12">
+            <ScrollViewer x:Name="ChatScroll" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="ChatMessages" Margin="16">
+                    <TextBlock Text="🤖 Nova: 你好！我是 SFT Launcher 的 AI 助手。有什么关于 Minecraft 的问题吗？" 
+                               Style="{StaticResource LabelSecondary}" 
+                               Background="{StaticResource BackgroundSecondaryBrush}"
+                               Padding="12,8" Margin="0,0,0,8"/>
+                </StackPanel>
+            </ScrollViewer>
+        </Border>
+        
+        <!-- 输入区域 -->
+        <Border Grid.Row="1" Style="{StaticResource CardStyle}" Padding="16">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- 增大输入框 -->
+                <TextBox Grid.Column="0" x:Name="MessageInput"
+                         Background="#F9FAFB" Foreground="#111827"
+                         BorderThickness="1" BorderBrush="#E5E7EB"
+                         Padding="16,14" FontSize="15"
+                         VerticalContentAlignment="Center"
+                         KeyDown="MessageInput_KeyDown"/>
+
+                <Button Grid.Column="1" Style="{StaticResource AccentButton}"
+                        Height="48" Width="90" Margin="12,0,0,0"
+                        Content="发送" Click="SendButton_Click"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Page>
