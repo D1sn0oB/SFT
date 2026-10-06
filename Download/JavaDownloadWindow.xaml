@@ -1,0 +1,31 @@
+<Window x:Class="SFTLauncher.Download.JavaDownloadWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="安装 Java 运行时" Height="210" Width="460"
+        WindowStartupLocation="CenterOwner" ResizeMode="NoResize"
+        Background="#FFFFFF" WindowStyle="ToolWindow">
+    <Grid Margin="24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="TitleText" Grid.Row="0" FontSize="15" FontWeight="600"
+                   Foreground="#111827" Text="正在准备 Java..."/>
+
+        <ProgressBar x:Name="Progress" Grid.Row="1" Height="8" Margin="0,16,0,0"
+                     Minimum="0" Maximum="100" Value="0"
+                     Foreground="#A78BFA" Background="#E5E7EB"/>
+
+        <TextBlock x:Name="DetailText" Grid.Row="2" Margin="0,12,0,0"
+                   Foreground="#6B7280" FontSize="12" TextWrapping="Wrap"
+                   VerticalAlignment="Top" Text=""/>
+
+        <Button x:Name="CancelBtn" Grid.Row="3" Content="取消" Width="90" Height="34"
+                HorizontalAlignment="Right" Click="Cancel_Click"
+                Background="#F9FAFB" Foreground="#6B7280"
+                BorderThickness="1" BorderBrush="#E5E7EB" Cursor="Hand"/>
+    </Grid>
+</Window>
